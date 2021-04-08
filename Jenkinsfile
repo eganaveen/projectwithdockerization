@@ -15,7 +15,7 @@ pipeline{
     } 
      stage('Docker buuild and tag'){
       steps{
-        sh 'docker build -t dockerjenkins:latest Dockerfile'
+        sh 'docker build -t egadoc/dockerjenkins:latest Dockerfile'
       }
     } 
    }
