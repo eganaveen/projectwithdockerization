@@ -16,6 +16,7 @@ pipeline{
      stage('Docker build and tag'){
       steps{
         sh 'docker build -t dockerjenkins:latest .'
+        sh 'docker run --name jd1 -p 8090:8080 dockerjenkins:latest'
       }
     } 
    }
