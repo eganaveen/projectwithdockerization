@@ -10,7 +10,7 @@ pipeline{
      stage('install'){
       steps{
         //test the source code.
-        sh 'mvn install'
+        sh 'mvn clean install'
       }
     } 
      stage('Docker build and tag'){
