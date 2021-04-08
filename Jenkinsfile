@@ -13,9 +13,9 @@ pipeline{
         sh 'mvn install'
       }
     } 
-     stage('Docker buuild and tag'){
+     stage('Docker build and tag'){
       steps{
-        sh 'docker build -t egadoc/dockerjenkins:latest Dockerfile'
+        sh 'docker build -t egadoc/dockerjenkins:latest .'
       }
     } 
    }
