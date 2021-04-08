@@ -15,7 +15,7 @@ pipeline{
     } 
      stage('Docker buuild and tag'){
       steps{
-        sh 'docker build -t dockerjenkins:latest .'
+        sh 'docker build -t dockerjenkins:latest /projectwithdockerization/blob/master/Jenkinsfile'
       }
     } 
    }
