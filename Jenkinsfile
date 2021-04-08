@@ -13,5 +13,10 @@ pipeline{
         sh 'mvn install'
       }
     } 
+     stage('Docker buuild and tag'){
+      steps{
+        sh 'dokcer build -t dockerjenkins:latest'
+      }
+    } 
    }
  }
