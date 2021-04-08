@@ -1,0 +1,40 @@
+---
+- hosts: Tomcat
+  become: yes
+  gather_facts: False
+  tasks:
+
+  - name: Install java_1.8
+    apt: name=openjdk-8-jdk state=present
+
+  - name: Install tomcat
+    get_url: url=https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.64/bin/apache-tomcat-8.5.64.tar.gz dest=/home/ansadmin mode=777
+    
+  - name: Install unzip
+    apt: 
+      name: unzip 
+      state: present
+    
+  - name: unarchieve tomcat
+    unarchive:
+      src: /home/ansadmin/apache-tomcat-8.5.64.tar.gz
+      dest: /home/ansadmin
+      remote_src: yes
+
+  - name: Download latest VProfile.war file
+    get_url: url=http://13.127.128.64:8081/nexus/content/repositories/EGA/group_id/artifact_id/43/artifact_id-43.war dest=/tmp/ mode=777
+
+  - name: stop tomcat
+    shell: nohup /home/ansadmin/apache-tomcat-8.5.64/bin/shutdown.sh &
+
+  - name: Copy artifact to tomcat folder
+    shell: cp /tmp/artifact_id-43.war /home/ansadmin/apache-tomcat-8.5.64/webapps
+
+  - name: Delete link to existing vprofile version
+    file: path=/home/ansadmin/apache-tomcat-8.5.64/webapps/artifact_id-41.war state=absent
+
+  - name: start tomcat
+    shell: nohup /home/ansadmin/apache-tomcat-8.5.64/bin/startup.sh &
+  - wait_for: path=/home/ansadmin/apache-tomcat-8.5.64/webapps/artifact_id-43.war
+
+  
