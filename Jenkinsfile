@@ -24,11 +24,9 @@ pipeline{
     }
      stage('Deploy our image') { 
             steps { 
-                script { 
-                    docker.withRegistry( '', registryCredential ) { 
-                        registry":$BUILD_NUMBER".push() 
-                    }
-                } 
+                withDockerRegistry([ credentialsId: "docker_creds", url: "" ]) {
+                    sh 'docker push registry":$BUILD_NUMBER"'
+              }
             }
         } 
     
