@@ -18,6 +18,11 @@ pipeline{
         sh 'docker build -t dockerjenkins":$BUILD_NUMBER" .'
         sh 'docker run -itd --name jd1 -p 8090:8080 dockerjenkins":$BUILD_NUMBER"'
       }
-    } 
+    }
+     stage('clean up'){
+     steps{
+        sh 'docker rmi -f dockerjenkins":$BUILD_NUMBER"'
+      }
+     }
    }
  }
