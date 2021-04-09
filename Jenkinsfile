@@ -1,8 +1,4 @@
 pipeline{
-  environment {
-    registry = "egadoc/dockerjenkins"
-    registryCredential = "egadoc"
-  }
   agent any
    stages{
     stage('scm'){
@@ -19,13 +15,14 @@ pipeline{
     } 
      stage('Docker build and tag'){
       steps{
-        sh 'docker build -t registry":$BUILD_NUMBER" .'
+        sh 'docker build -t dockerjenkins":$BUILD_NUMBER" .'
+        sh 'docker tag dockerjenkins":$BUILD_NUMBER" egadoc/dockerjenkins":$BUILD_NUMBER"'
       }
     }
      stage('Deploy our image') { 
             steps { 
                 withDockerRegistry([ credentialsId: "docker_creds", url: "" ]) {
-                    sh 'docker push registry":$BUILD_NUMBER"'
+                    sh 'docker push dockerjenkins":$BUILD_NUMBER"'
               }
             }
         } 
