@@ -21,7 +21,7 @@ pipeline{
     }
      stage('clean up'){
      steps{
-        sh 'docker rmi -f dockerjenkins":$BUILD_NUMBER"'
+        sh 'docker rm -f dockerjenkins":$BUILD_NUMBER"'
       }
      }
    }
