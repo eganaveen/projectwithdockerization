@@ -20,7 +20,6 @@ pipeline{
      stage('Docker build and tag'){
       steps{
         sh 'docker build -t registry":$BUILD_NUMBER" .'
-        sh 'docker run -itd --name jd1 -p 8090:8080 registry":$BUILD_NUMBER"'
       }
     }
      stage('Deploy our image') { 
