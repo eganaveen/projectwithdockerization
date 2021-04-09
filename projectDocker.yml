@@ -1,0 +1,8 @@
+---
+- hosts: Tomcat
+  become: true
+  gather_facts: false
+  tasks:
+    - name: pull image from docker hub
+      docker_image:
+        name: egadoc/dockerjenkins
