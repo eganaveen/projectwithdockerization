@@ -3,9 +3,6 @@
   become: true
   gather_facts: false
   tasks:
-  
-    - name: Install EPEL-release
-      apt: name=epel-release state=present
     
     - name: pull image from docker hub
       docker_image:
