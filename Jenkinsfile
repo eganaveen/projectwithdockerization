@@ -28,7 +28,7 @@ pipeline{
         } 
      stage('pull an image from Docker'){
        steps{
-          sh 'ansiblePlaybook credentialsId: '0f05a22c-09ce-4466-8544-93c91e5a3243', disableHostKeyChecking: true, inventory: '/etc/ansible/hosts', playbook: 'proejctDocker.yml''
+          sh 'ansiblePlaybook credentialsId: '0f05a22c-09ce-4466-8544-93c91e5a3243', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'proejctDocker.yml''
        }
      }
    }
