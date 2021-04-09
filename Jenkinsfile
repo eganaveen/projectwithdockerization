@@ -32,10 +32,6 @@ pipeline{
                 } 
             }
         } 
-     stage('clean up'){
-     steps{
-        sh 'docker rm -f dockerjenkins":$BUILD_NUMBER"'
-      }
-     }
+    
    }
  }
