@@ -1,4 +1,8 @@
 pipeline{
+  environment {
+    registry = "egadoc/dockerjenkins"
+    registryCredential = "egadoc"
+  }
   agent any
    stages{
     stage('scm'){
@@ -15,10 +19,19 @@ pipeline{
     } 
      stage('Docker build and tag'){
       steps{
-        sh 'docker build -t dockerjenkins":$BUILD_NUMBER" .'
-        sh 'docker run -itd --name jd1 -p 8090:8080 dockerjenkins":$BUILD_NUMBER"'
+        sh 'docker build -t registry":$BUILD_NUMBER" .'
+        dockerImage = sh 'docker run -itd --name jd1 -p 8090:8080 registry":$BUILD_NUMBER"'
       }
     }
+     stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        } 
      stage('clean up'){
      steps{
         sh 'docker rm -f dockerjenkins":$BUILD_NUMBER"'
