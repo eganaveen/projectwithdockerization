@@ -21,7 +21,7 @@ pipeline{
     }
      stage('Deploy our image') { 
             steps { 
-                withDockerRegistry([ credentialsId: "docker_creds", url: "https://hub.docker.com/" ]) {
+                withDockerRegistry( credentialsId: "docker_creds", url: "https://hub.docker.com/" ) {
                     sh 'docker push egadoc/dockerjenkins":$BUILD_NUMBER"'
               }
             }
